@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #todoContainer{
+        #todoContainer {
             display: grid;
-            grid-template-columns: repeat(3,200px);
+            grid-template-columns: repeat(3, 200px);
             gap: 20px;
             justify-content: center;
         }
-        .todoCard{
-            background-color: rgb(3,25,86);
+
+        .todoCard {
+            background-color: rgb(3, 25, 86);
             padding: 20px;
             color: white;
             border-radius: 10px;
@@ -23,118 +25,149 @@
             gap: 10px;
             text-align: center;
         }
-        .todoCard *{
+
+        .todoCard * {
             margin: auto;
         }
-        
-        .todoCard button{
+
+        .todoCard button {
             width: 120px;
             cursor: pointer;
         }
 
-        body{
-            background-color: rgb(52,79,161);
+        body {
+            background-color: rgb(52, 79, 161);
         }
-        #addTodo{
+
+        #addTodo {
             text-align: center;
             padding: 20px;
         }
-        header{
+
+        header {
             text-align: center;
         }
-        header h1{
+
+        header h1 {
             color: white;
         }
 
-        #addTodo input{
+        #addTodo input {
             padding: 10px;
             border-radius: 10px;
             border: none;
         }
-        #addTodo button{
+
+        #addTodo button {
             width: 120px;
             border: none;
             height: 40px;
-            background-color: rgb(206,24,236);
+            background-color: rgb(206, 24, 236);
             color: white;
             cursor: pointer;
             border-radius: 10px;
         }
 
-        button{
+        button {
             border: none;
             border-radius: 10px;
             padding: 10px;
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>My Todos</h1>
     </header>
     <main>
-            <div id="addTodo">
-                <input type="text" id="todo" placeholder="Eg. Build Todo Web App">
-                <button onclick="addTodo()">Add Todo</button>
-            </div>
+        <div id="addTodo">
+            <input type="text" id="todo" placeholder="Eg. Build Todo Web App">
+            <button onclick="addTodo()">Add Todo</button>
+        </div>
 
-            <div id="todoContainer">
-                
-            </div>
+        <div id="todoContainer">
+
+        </div>
     </main>
     <footer>
 
     </footer>
 </body>
 <script>
-    let todoItem=[];
-    const todoContainer=document.getElementById("todoContainer");
-    function setodoItem(value){
-        todoItem=value
-    }
+    let todoItem = [];  // where all todos will be stored
+    const todoContainer = document.getElementById("todoContainer");  // todos container
 
-    function showTodos(todos=[]){
-            // to show todos to ui
-            todoContainer.innerText=""
-           todos.map((e,index)=>{
-                let div=document.createElement("div");
-                let title=document.createElement("p");
-                let todoStatus=document.createElement("p");
-                let btnRemove=document.createElement("button");
-                let btnUpdate=document.createElement("button");
-                title.innerText=e.title;
-                todoStatus.innerText=`Status : ${e.status?"Completed":"Pending"}`
-                btnRemove.innerText="Remove";
-                btnUpdate.innerText=`Mark ${e.status?"Pending":"Completed"}`
-                div.className="todoCard";
-                title.className="todoTitle";
-                todoStatus.className="todoStatus";
-                btnRemove.className="todoRemove";
-                btnUpdate.className="todoStatusUpdate"
-                btnUpdate.addEventListener("click",()=>{
-                    updateStatus(index)
-                })
-                div.append(title,todoStatus,btnRemove,btnUpdate);
-                todoContainer.append(div)
 
-           }) 
+    // to show all todos
 
-    }
-    function updateStatus(el){
-        const updatedArray=todoItem.map((e,i)=>{
-            if(i==i){ return {...e,status:!e.status} }else { return e}
+    function showTodos(todos = []) {
+
+        todoContainer.innerText = ""
+        todos.forEach((e, index) => {
+            let div = document.createElement("div");
+            let title = document.createElement("p");
+            let todoStatus = document.createElement("p");
+            let btnRemove = document.createElement("button");
+            let btnUpdate = document.createElement("button");
+            title.innerText = e.title;
+            todoStatus.innerText = `Status : ${e.status ? "Completed" : "Pending"}`
+            btnRemove.innerText = "Remove";
+            btnUpdate.innerText = `Mark ${e.status ? "Pending" : "Completed"}`
+            div.className = "todoCard";
+
+            title.className = "todoTitle";
+            todoStatus.className = "todoStatus";
+            btnRemove.className = "todoRemove";
+            btnUpdate.className = "todoStatusUpdate"
+            btnUpdate.style.color = `${!e.status ? "white" : "black"}`
+            btnUpdate.style.backgroundColor = `${!e.status ? "green" : "yellow"}`
+            btnUpdate.addEventListener("click", () => {
+                updateStatus(index)
+            });
+            btnRemove.addEventListener("click", function(){
+                removeTodo(index)
+            });
+            div.append(title, todoStatus, btnRemove, btnUpdate);
+            todoContainer.append(div)
+
         })
 
-        todoItem=updatedArray
+    }
+
+    // to update status of the todo
+
+    function updateStatus(el) {
+        const updatedArray = todoItem.map((e, i) => {
+            if (i == el) { return { ...e, status: !e.status } } else { return e }
+        })
+
+        todoItem = updatedArray
         showTodos(todoItem)
     }
 
-    function addTodo(){
-        const value=document.getElementById("todo").value;
-        const todo={title:value,status:false}
+    // to add new todo
+    function addTodo() {
+        const value = document.getElementById("todo").value;
+        const todo = { title: value, status: false }
         todoItem.push(todo)
         showTodos(todoItem)
     }
 
+
+    // removeTodo
+
+    function removeTodo(index) {
+        let newArray = []
+        const updatedArray = todoItem.filter((e, i) => {
+            if (i !== index) {
+                return {...e}
+            }
+        })
+        console.log(updatedArray)
+        todoItem = [...updatedArray]
+        showTodos(todoItem)
+    }
 </script>
+
 </html>
