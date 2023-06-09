@@ -109,4 +109,33 @@
 
     </footer>
 </body>
+<script>
+    const todoItem=[];
+    const todoContainer=document.getElementById("todoContainer");
+
+    function showTodos(todos=[]){
+            // to show todos to ui
+           todos.map((e)=>{
+                let div=document.createElement("div");
+                let title=document.createElement("p");
+                let todoStatus=document.createElement("p");
+                let btnRemove=document.createElement("button");
+                let btnUpdate=document.createElement("button");
+                title.innerText=e.title;
+                todoStatus.innerText=`Status : ${e.status?"Completed":"False"}`
+                btnRemove.innerText="Remove";
+                btnUpdate.innerText="Mark Complete";
+                div.className="todoCard";
+                title.className="todoTitle";
+                todoStatus.className="todoStatus";
+                btnRemove.className="todoRemove";
+                btnUpdate.className="todoStatusUpdate"
+                div.append(title,todoStatus,btnRemove,btnUpdate);
+                todoContainer.append(div)
+
+           }) 
+
+    }
+
+</script>
 </html>
