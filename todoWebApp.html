@@ -74,8 +74,8 @@
     </header>
     <main>
             <div id="addTodo">
-                <input type="text" placeholder="Eg. Build Todo Web App">
-                <button>Add Todo</button>
+                <input type="text" id="todo" placeholder="Eg. Build Todo Web App">
+                <button onclick="addTodo()">Add Todo</button>
             </div>
 
             <div id="todoContainer">
@@ -115,6 +115,7 @@
 
     function showTodos(todos=[]){
             // to show todos to ui
+            todoContainer.innerText=""
            todos.map((e)=>{
                 let div=document.createElement("div");
                 let title=document.createElement("p");
@@ -122,7 +123,7 @@
                 let btnRemove=document.createElement("button");
                 let btnUpdate=document.createElement("button");
                 title.innerText=e.title;
-                todoStatus.innerText=`Status : ${e.status?"Completed":"False"}`
+                todoStatus.innerText=`Status : ${e.status?"Completed":"Pending"}`
                 btnRemove.innerText="Remove";
                 btnUpdate.innerText="Mark Complete";
                 div.className="todoCard";
@@ -135,6 +136,13 @@
 
            }) 
 
+    }
+
+    function addTodo(){
+        const value=document.getElementById("todo").value;
+        const todo={title:value,status:false}
+        todoItem.push(todo)
+        showTodos(todoItem)
     }
 
 </script>
