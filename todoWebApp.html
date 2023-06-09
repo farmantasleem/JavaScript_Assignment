@@ -73,6 +73,72 @@
             border-radius: 10px;
             padding: 10px;
         }
+
+        @media only screen and (max-width: 768px) {
+
+            /* For mobile phones: */
+            #todoContainer {
+                grid-template-columns: 200px;
+            }
+
+            #addTodo {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                justify-content: center;
+                justify-self: center;
+                gap: 20px;
+                justify-items: center;
+            }
+
+            #addTodo * {
+                margin: auto;
+            }
+
+            .todoCard {
+                position: relative;
+            }
+
+
+        }
+
+        #update {
+            position: absolute;
+
+            width: 400px;
+            height: 150px;
+            background-color: rgb(149,100,243);
+            padding: 10px;
+            border-radius: 10px;
+            margin: 0;
+            position: absolute;
+            gap: 0px;
+            align-items: center;
+            justify-content: center;
+            align-content: center;
+            display: none;
+            flex-direction: column;
+            border-radius: 20px;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        #update button{
+            width: 160px;
+            background-color: rgb(47,4,127);
+            color: white;
+            cursor: pointer;
+        }
+        #update input{
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            width: 180px;
+        }
+        #update *{
+            margin: auto;
+        }
     </style>
 </head>
 
@@ -87,9 +153,18 @@
         </div>
 
         <div id="todoContainer">
-
+            <div class="todoCard">
+                <p class="title">Todo Title</p>
+                <p class="status">Status: </p>
+                <button onclick="openModal()">Update</button>
+            </div>
         </div>
     </main>
+    <div id="update">
+            <input type="text" placeholder="Write here" id="inputData">
+          <div>  <button>Update</button>
+            <button onclick="closeModal()">Close</button></div>
+    </div>
     <footer>
 
     </footer>
@@ -125,7 +200,7 @@
             btnUpdate.addEventListener("click", () => {
                 updateStatus(index)
             });
-            btnRemove.addEventListener("click", function(){
+            btnRemove.addEventListener("click", function () {
                 removeTodo(index)
             });
             div.append(title, todoStatus, btnRemove, btnUpdate);
@@ -161,13 +236,24 @@
         let newArray = []
         const updatedArray = todoItem.filter((e, i) => {
             if (i !== index) {
-                return {...e}
+                return { ...e }
             }
         })
         console.log(updatedArray)
         todoItem = [...updatedArray]
         showTodos(todoItem)
     }
+
+    //close modal 
+    function closeModal(){
+        document.getElementById("update").style.display="none"
+    }
+
+    //open modal
+    function openModal(){
+        document.getElementById("update").style.display="flex";
+    }
+
 </script>
 
 </html>
