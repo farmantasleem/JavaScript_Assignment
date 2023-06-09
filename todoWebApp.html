@@ -9,8 +9,8 @@
     <style>
         #todoContainer {
             display: grid;
-            grid-template-columns: repeat(3, 200px);
-            gap: 20px;
+            grid-template-columns: repeat(3, 320px);
+            gap: 60px;
             justify-content: center;
         }
 
@@ -19,6 +19,7 @@
             padding: 20px;
             color: white;
             border-radius: 10px;
+            min-width: 300px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -31,7 +32,7 @@
         }
 
         .todoCard button {
-            width: 120px;
+            width: 220px;
             cursor: pointer;
         }
 
@@ -95,9 +96,7 @@
                 margin: auto;
             }
 
-            .todoCard {
-                position: relative;
-            }
+            
 
 
         }
@@ -153,16 +152,12 @@
         </div>
 
         <div id="todoContainer">
-            <div class="todoCard">
-                <p class="title">Todo Title</p>
-                <p class="status">Status: </p>
-                <button onclick="openModal()">Update</button>
-            </div>
+            
         </div>
     </main>
     <div id="update">
             <input type="text" placeholder="Write here" id="inputData">
-          <div>  <button>Update</button>
+          <div>  <button id="updateTask">Update</button>
             <button onclick="closeModal()">Close</button></div>
     </div>
     <footer>
@@ -185,6 +180,11 @@
             let todoStatus = document.createElement("p");
             let btnRemove = document.createElement("button");
             let btnUpdate = document.createElement("button");
+            let btnEdit = document.createElement("button");
+            btnEdit.innerText="Edit Task";
+            btnEdit.addEventListener("click",()=>{
+                openModal(e,index)
+            })
             title.innerText = e.title;
             todoStatus.innerText = `Status : ${e.status ? "Completed" : "Pending"}`
             btnRemove.innerText = "Remove";
@@ -203,7 +203,7 @@
             btnRemove.addEventListener("click", function () {
                 removeTodo(index)
             });
-            div.append(title, todoStatus, btnRemove, btnUpdate);
+            div.append(title, todoStatus, btnRemove, btnUpdate,btnEdit);
             todoContainer.append(div)
 
         })
@@ -250,8 +250,24 @@
     }
 
     //open modal
-    function openModal(){
+    function openModal(e,index){
+        
         document.getElementById("update").style.display="flex";
+        document.getElementById("inputData").value=e.title
+        document.getElementById("updateTask").addEventListener("click",()=>{
+                updateTask(e,index)
+        })
+    }
+
+    function updateTask(e,index){
+        const value=document.getElementById("inputData").value;
+        const updatedArray = todoItem.map((e, i) => {
+            if (i == index) { return { ...e, title:value } } else { return {...e} }
+        })
+
+        todoItem = [...updatedArray]
+        showTodos(todoItem)
+        closeModal()
     }
 
 </script>
