@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        #parent{
+            display: flex;
+            background-color: rgb(56, 79, 79);
+            padding: 40px;
+            justify-self: center;
+            margin: auto;
+            border-radius: 20px;
+            gap: 30px;
+            width: 500px;
+            position: absolute;
+            transform: translate(50%,50%);
+        }
+        .content{
+            display: flex;
+            flex-direction: column;
+        }
+        img{
+            width: 200px;
+            border-radius: 40px;
+            height: 200px;
+            border: 2px solid white;
+        }
+        *{
+            color: white;
+        }
+        button{
+            background-color: black;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="parent">
+        <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  alt="">
+        <div class="content">
+            <h1>Product Title will be here</h1>
+            <p>Price: 899</p>
+            <button>Buy Now</button> </div>
+    </div>
+
+   
+</body>
+
+<script>
+    const parent_element=document.getElementById("parent")
+    const data=JSON.parse(localStorage.getItem("product_Details"))
+    function show(){
+        parent_element.innerText=""
+        let img=document.createElement("img");
+        let h1=document.createElement("h1");
+        let btn=document.createElement("button");
+        let div=document.createElement("div");
+        let para=document.createElement("p");
+        para.innerText="Price : "+data.price;
+        div.className="content";
+        img.src=data.image;
+        h1.innerText=data.title;
+        btn.innerText="Buy Now";
+        div.append(h1,para,btn)
+        parent_element.append(img,div);
+    }    
+
+show()
+</script>
+</html>

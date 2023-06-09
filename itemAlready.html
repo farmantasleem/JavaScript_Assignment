@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        img{
+            width: 200px;
+            height: 200px;
+        }
+        #parent,#parent_cart{
+            display: grid;
+            grid-template-columns: 200px 200px 200px 200px;
+            justify-content: center;
+            gap: 60px;
+            column-gap: 50px;
+            padding: 20px;
+
+            background-color: rgb(75, 106, 209);
+           
+        }
+        h2{
+            text-align: center;
+        }
+        .product{
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            display: flex;
+            border-radius: 10px;
+            height: 400px;
+            overflow: hidden;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        h1{
+            font-size: 19px;
+        }
+
+        button{
+            background-color: black;
+            border: 2px solid white;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h2>All Products</h2>
+
+    <div id="parent">
+        <div class="product">
+            <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  alt="">
+            <h1>Product Title will be here</h1>
+            <p>Price: 899</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  alt="">
+            <h1>Product Title will be here</h1>
+            <p>Price: 899</p>
+            <button>Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"  alt="">
+            <h1>Product Title will be here</h1>
+            <p>Price: 899</p>
+            <button>Add to Cart</button>
+        </div>
+    </div>
+        <h2>Cart Item</h2>
+    <div id="parent_cart">
+
+    </div>
+</body>
+
+<script>
+    const container=document.getElementById("parent");
+    const parent_cart=document.getElementById("parent_cart");
+    let addtoCart=[];
+    async function getData(){
+        // fetch data
+
+        const data=await fetch("https://fakestoreapi.com/products");
+        const resp=await data.json();
+        show(resp)
+    }
+
+    function show(product){
+        container.innerText="";
+        product.forEach((e,i)=>{
+            if (i>3) return
+            const img=document.createElement("img");
+            const h1=document.createElement("h1");
+            const p=document.createElement("p");
+            const div=document.createElement("div");
+            const btn=document.createElement("button")
+            div.className="product"
+            btn.innerText="Add to Cart"
+            img.src=e.image;
+            h1.innerText=e.title;
+            p.innerText=`Price : ${e.price}`
+            div.append(img,h1,p,btn)
+            btn.addEventListener("click",(event)=>{
+                const status=alreadyInCart(e.title)
+                if(status){
+                    alert("Item Already in cart")
+                }else{
+                    addtoCart.push(e);
+                showCartItem(addtoCart)
+                }
+                
+                
+            })
+            container.append(div)
+
+        })
+    }
+
+    getData()
+
+
+
+    // show to cart
+
+    function showCartItem(product){
+        parent_cart.innerText="";
+        product.forEach((e,i)=>{
+            if (i>3) return
+            const img=document.createElement("img");
+            const h1=document.createElement("h1");
+            const p=document.createElement("p");
+            const div=document.createElement("div");
+            const btn=document.createElement("button")
+            div.className="product"
+            btn.innerText="Delete From Cart"
+            btn.addEventListener("click",()=>{
+               addtoCart=addtoCart.map((e,ind)=>{
+                        if (ind!==i) return e
+                })
+                showCartItem(addtoCart)
+
+            })
+            img.src=e.image;
+            h1.innerText=e.title;
+            p.innerText=`Price : ${e.price}`
+            div.append(img,h1,p,btn)
+           
+            parent_cart.append(div)
+
+        })
+    }
+
+    function alreadyInCart(title){
+        for(let i=0;i<addtoCart.length;i++){
+            if(title==addtoCart[i].title){
+                 return true}
+        }
+
+        return false
+    }
+
+</script>
+</html>
