@@ -82,7 +82,7 @@
 
         img{
             width: 300px;
-            height: 200px;
+            height: 300px;
         }
 
         #livePreview{
@@ -105,6 +105,23 @@
         }
         #content{
             width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .tag{
+            padding: 10px;
+            border-radius: 10px;
+            background-color: rgb(35,75,126);
+            color: white;
+            font-size: 13px;
+            margin: 10px;
+            box-sizing: border-box;
+            width: fit-content;
+        }
+        #livePreview{
+            min-width: 750px;
+            max-width: 750px;
         }
     </style>
 
@@ -114,25 +131,25 @@
     <div id="parent">
         <div id="form">
             <h1>Publish Your Story</h1>
-            <div class="input"><input type="text" placeholder="Enter Story Title"></div>
+            <div class="input"><input type="text" oninput="titleChange(event)" placeholder="Enter Story Title" ></div>
             <div class="input">
-                <input type="text" placeholder="Enter Image URL">
+                <input type="text" oninput="imageChange(event)" placeholder="Enter Image URL">
             </div>
             <div class="input">
-                <input type="text" placeholder="Enter Author Name">
+                <input type="text" oninput="authorChange(event)"  placeholder="Enter Author Name">
             </div>
             <div class="input">
-                <input type="text" placeholder="Category Eg Educational">
+                <input type="text" id="storyCategory" oninput="categoryChange(event)" placeholder="Category Eg Educational">
             </div>
             <div class="input">
-                <textarea name="" id="" cols="30" placeholder="Enter Your Story" rows="10"></textarea>
+                <textarea name=""  cols="30" oninput="contentChange(event)" placeholder="Enter Your Story" rows="10"></textarea>
             </div>
-            <button>Submit My Story</button>
+            <button id="submitButton">Submit My Story</button>
         </div>
         <div id="livePreview">
-            <img src="./assets/story.jpg" alt="">
-            <div id="content">
-                <h1>Story Title : How I became billionare within 6 Days</h1>
+            <img id="storyImage"  src="./assets/story.jpg" alt="">
+            <div id="storyContent"  id="content">
+                <h1 id="storyTitle">Story Title : How I became billionare within 6 Days</h1>
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod similique eaque accusantium aperiam
                     optio necessitatibus, provident excepturi nostrum, et totam, numquam adipisci ex recusandae? Fugit
@@ -141,11 +158,37 @@
                     Incidunt rem laboriosam dignissimos! Debitis rem inventore nemo numquam a, facilis commodi in autem
                     
                 </p>
-                <p>Written By <span id="author">Farman</span></p>
+                <p class="tag">Written By <span id="storyAuthor">Farman</span></p>
             </div>
 
         </div>
     </div>
 </body>
+<script>
+    function titleChange(event){
+        document.getElementById("storyTitle").innerText=event.target.value
+    }
+    function authorChange(event){
+        document.getElementById("storyAuthor").innerText=event.target.value
+
+    } 
+
+    function imageChange(event){
+        document.getElementById("storyImage").src=event.target.value
+
+
+    }
+    function contentChange(event){
+        document.getElementById("storyContent").innerText=event.target.value
+
+
+    }
+    function categoryChange(event){
+        document.getElementById("storyCategory").innerText=event.target.value
+
+
+    }
+
+</script>
 
 </html>
