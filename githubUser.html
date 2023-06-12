@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find User</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        #searchbar{
+            display: flex;
+            background-color: white;
+            height: 40px;
+            padding: 20px;
+            justify-content: center;
+        }
+        #searchbar input{
+            padding: 10px;
+            width: 290px;
+        }
+        #searchbar button{
+            font-size: 15px;
+            background-color: rgb(30,25,77);
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: 200px;
+        }
+
+        body{
+            background-color: rgb(30,25,77);
+        }
+    </style>
+</head>
+<body>
+    <div id="searchbar">
+        <input id="userName" type="text" placeholder="Enter User Name: Eg. farmantasleem"/>
+        <button onclick="getData()">Get Data</button>
+
+
+    </div>
+    <div id="content">
+
+    </div>
+</body>
+<script>
+
+    async function getData(){
+        const userName=document.getElementById("userName").value;
+
+        const resp=await fetch(`https://api.github.com/users/${userName}`);
+        const {avatar_url,bio,followers,location,name}=await resp.json()
+        document.getElementById("content").innerText=JSON.stringify(data);
+        console.log(data)
+    }
+</script>
+</html>
