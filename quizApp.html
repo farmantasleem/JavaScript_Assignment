@@ -10,20 +10,21 @@
         #winner {
 
             position: absolute;
-            top: 20%;
+            top: 50%;
             left: 50%;
             -ms-transform: translate(-20%, -50%);
-            transform: translate(-20%, -50%);
+            transform: translate(-50%, -50%);
             background-color: rgb(28, 26, 94);
             width: 300px;
             color: white;
             height: 200px;
-            display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 50px;
             gap: 0px;
             border-radius: 10px;
+            display: none;
+
             text-align: center;
         }
 
@@ -46,24 +47,67 @@
         .finalScore {
             display: flex;
             flex-direction: row;
-            background-color: rgb(65, 229, 237);
-            color: rgb(28, 26, 94);
+          
             justify-content: center;
             padding: 10px;
+            border: 2px solid white;
 
 
+
+        }
+
+        #scoreTag{
+            font-size: 19px;
+            background-color: rgb(65, 229, 237);
+            color: rgb(28, 26, 94);
+            padding: 5px ;
+            border-radius: 10px;
+        }
+
+        #quizCard{
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            background-color: rgb(28, 26, 94);
+            width: 300px;
+            color: white;
+            height: 150px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            gap: 10px;
+            border-radius: 10px;
+            text-align: center;
+
+        }
+        
+        select{
+            padding: 10px;
+            border: none;
+        }
+        button{
+            background-color: rgb(65, 229, 237);
+            color: rgb(28, 26, 94);
+            padding: 10px;
+            cursor: pointer;
+        }
+        option,select{
+            cursor: pointer;
         }
     </style>
 </head>
 
 <body>
-    <header>
+    <header style="text-align: center;padding-top: 50px;">
         <h1>Quiz App</h1>
     </header>
 
     <main>
         <div id="quizCard">
-            <h1 id="question">Q.1 Hello Ji ki Haal chaal?</h1>
+            <h1 id="question"></h1>
             <select name="" id="select">
 
 
@@ -71,19 +115,19 @@
             <button onclick="validateAnswer()">Submit</button>
         </div>
         <div id="winner">
-            <h1>Score</h1>
+            <h1 id="scoreTag">Score</h1>
             <div class="hstack">
-                <h1>Total Right Question</h1>
+                <h1>Total Right Question : </h1>
                 <p>19</p>
             </div>
 
             <div class="hstack">
-                <h1>Total Wrong Question</h1>
+                <h1>Total Wrong Question : </h1>
                 <p>18</p>
             </div>
 
             <div class="finalScore">
-                <h1>Final Score</h1>
+                <h1>Final Score : </h1>
                 <p>19</p>
             </div>
         </div>
@@ -102,7 +146,7 @@
 
     function showQuiz(ind) {
         currentId = ind
-        document.getElementById("question").innerText = questions[ind].q;
+        document.getElementById("question").innerText = "Q. "+ind+1+" "+questions[ind].q;
         document.getElementById("select").innerText = "";
         questions[ind].option.map((e) => {
             let option1 = document.createElement("option");
@@ -112,7 +156,7 @@
             document.getElementById("select").append(option1)
         })
     }
-    // showQuiz(0)
+    showQuiz(0)
 
     function validateAnswer() {
 
