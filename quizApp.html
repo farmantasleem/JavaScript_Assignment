@@ -97,6 +97,35 @@
         option,select{
             cursor: pointer;
         }
+        .feedback{
+            width: 150px;
+            height: 30px;
+            padding: 5px;
+            border-radius: 10px;
+            display: flex;
+            font-size: 13px;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            right: 45%;
+            bottom: 30px;
+        }
+
+        #negative{
+            background-color: red;
+            color: white;
+            
+        }
+        .feedback *{
+            font-size: 13px;
+
+        }
+
+        #positive{
+            background-color: green;
+            color: white;
+        }
     </style>
 </head>
 
@@ -118,18 +147,25 @@
             <h1 id="scoreTag">Score</h1>
             <div class="hstack">
                 <h1>Total Right Question : </h1>
-                <p>19</p>
+                <p id="rightQuestion">19</p>
             </div>
 
             <div class="hstack">
                 <h1>Total Wrong Question : </h1>
-                <p>18</p>
+                <p id="wrongQuestion">18</p>
             </div>
 
             <div class="finalScore">
-                <h1>Final Score : </h1>
-                <p>19</p>
+                <h1>Final Result : </h1>
+                <p id="finalScore">19</p>
             </div>
+        </div>
+
+        <div id="positive" class="feedback">
+            <h1>Status: Right Answer</h1>
+        </div>
+        <div class="feedback" id="negative">
+            <h1>Status: Wrong Answer</h1>
         </div>
     </main>
 </body>
@@ -145,6 +181,10 @@
     ]
 
     function showQuiz(ind) {
+        if(currentId==questions.length){
+            endGame()
+            return
+        }
         currentId = ind
         document.getElementById("question").innerText = "Q. "+ind+1+" "+questions[ind].q;
         document.getElementById("select").innerText = "";
@@ -159,7 +199,7 @@
     showQuiz(0)
 
     function validateAnswer() {
-
+       
         let ans = document.getElementById("select").value
 
         if (questions[currentId].answer == ans) {
@@ -169,8 +209,24 @@
             alert("Wrong Answer")
         }
 
+       
         showQuiz(++currentId)
+       
 
+
+    }
+
+    function endGame(){
+        alert("i was called")
+        document.getElementById("rightQuestion").innerText=score;
+        document.getElementById("wrongQuestion").innerText=questions.length-score;
+        document.getElementById("finalScore").innerText=score>=questions.length/2?"Pass":"Failed"
+       let winner=document.getElementById("winner");
+       
+        let quizCard=document.getElementById("quizCard");
+        quizCard.style.display="none"
+        winner.style.display="flex";
+        
     }
 </script>
 
