@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz: Try Win Repeat</title>
+    <style>
+        #winner {
+
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            -ms-transform: translate(-20%, -50%);
+            transform: translate(-20%, -50%);
+            background-color: rgb(28, 26, 94);
+            width: 300px;
+            color: white;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 50px;
+            gap: 0px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+
+
+        .hstack {
+            display: flex;
+            margin: auto;
+            flex-direction: row;
+        }
+
+        * {
+            border: none;
+            padding: 0px;
+            margin: 0px;
+            font-family: sans-serif;
+            font-size: 17px;
+        }
+
+        .finalScore {
+            display: flex;
+            flex-direction: row;
+            background-color: rgb(65, 229, 237);
+            color: rgb(28, 26, 94);
+            justify-content: center;
+            padding: 10px;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Quiz App</h1>
+    </header>
+
+    <main>
+        <div id="quizCard">
+            <h1 id="question">Q.1 Hello Ji ki Haal chaal?</h1>
+            <select name="" id="select">
+
+
+            </select>
+            <button onclick="validateAnswer()">Submit</button>
+        </div>
+        <div id="winner">
+            <h1>Score</h1>
+            <div class="hstack">
+                <h1>Total Right Question</h1>
+                <p>19</p>
+            </div>
+
+            <div class="hstack">
+                <h1>Total Wrong Question</h1>
+                <p>18</p>
+            </div>
+
+            <div class="finalScore">
+                <h1>Final Score</h1>
+                <p>19</p>
+            </div>
+        </div>
+    </main>
+</body>
+
+<script>
+    let score = 0;
+    let currentId = 0
+
+    const questions = [
+        { q: "Whats Your Name ? ", option: ["Farman", "Arsh", "Farman Malik", "None of them"], answer: "Arsh" },
+        { q: "Whats Your Name bro ? ", option: ["Farman", "Arsh", "Farman Malik", "None of them"], answer: "Farman Malik" },
+        { q: "Whats Your Name dost? ", option: ["Farman", "Arsh", "Farman Malik", "None of them"], answer: "Farman" },
+    ]
+
+    function showQuiz(ind) {
+        currentId = ind
+        document.getElementById("question").innerText = questions[ind].q;
+        document.getElementById("select").innerText = "";
+        questions[ind].option.map((e) => {
+            let option1 = document.createElement("option");
+            option1.className = "option";
+            option1.value = e;
+            option1.innerText = e
+            document.getElementById("select").append(option1)
+        })
+    }
+    // showQuiz(0)
+
+    function validateAnswer() {
+
+        let ans = document.getElementById("select").value
+
+        if (questions[currentId].answer == ans) {
+            score++
+            alert("Right Answer", ans)
+        } else {
+            alert("Wrong Answer")
+        }
+
+        showQuiz(++currentId)
+
+    }
+</script>
+
+</html>
