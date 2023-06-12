@@ -47,7 +47,7 @@
         .finalScore {
             display: flex;
             flex-direction: row;
-          
+
             justify-content: center;
             padding: 10px;
             border: 2px solid white;
@@ -56,15 +56,15 @@
 
         }
 
-        #scoreTag{
+        #scoreTag {
             font-size: 19px;
             background-color: rgb(65, 229, 237);
             color: rgb(28, 26, 94);
-            padding: 5px ;
+            padding: 5px;
             border-radius: 10px;
         }
 
-        #quizCard{
+        #quizCard {
             top: 50%;
             left: 50%;
             -ms-transform: translate(-50%, -50%);
@@ -83,21 +83,25 @@
             text-align: center;
 
         }
-        
-        select{
+
+        select {
             padding: 10px;
             border: none;
         }
-        button{
+
+        button {
             background-color: rgb(65, 229, 237);
             color: rgb(28, 26, 94);
             padding: 10px;
             cursor: pointer;
         }
-        option,select{
+
+        option,
+        select {
             cursor: pointer;
         }
-        .feedback{
+
+        .feedback {
             width: 150px;
             height: 30px;
             padding: 5px;
@@ -112,17 +116,20 @@
             bottom: 30px;
         }
 
-        #negative{
+        #negative {
             background-color: red;
+            display: none;
             color: white;
-            
+
         }
-        .feedback *{
+
+        .feedback * {
             font-size: 13px;
 
         }
 
-        #positive{
+        #positive {
+            display: none;
             background-color: green;
             color: white;
         }
@@ -181,12 +188,12 @@
     ]
 
     function showQuiz(ind) {
-        if(currentId==questions.length){
+        if (currentId == questions.length) {
             endGame()
             return
         }
         currentId = ind
-        document.getElementById("question").innerText = "Q. "+ind+1+" "+questions[ind].q;
+        document.getElementById("question").innerText = "Q. " + Number(currentId+1)+ " " + questions[ind].q;
         document.getElementById("select").innerText = "";
         questions[ind].option.map((e) => {
             let option1 = document.createElement("option");
@@ -199,34 +206,47 @@
     showQuiz(0)
 
     function validateAnswer() {
-       
+
         let ans = document.getElementById("select").value
 
         if (questions[currentId].answer == ans) {
             score++
-            alert("Right Answer", ans)
+            rightAnswer()
         } else {
-            alert("Wrong Answer")
+            wrongAnswer()
         }
 
-       
+
         showQuiz(++currentId)
-       
+
 
 
     }
 
-    function endGame(){
-        alert("i was called")
-        document.getElementById("rightQuestion").innerText=score;
-        document.getElementById("wrongQuestion").innerText=questions.length-score;
-        document.getElementById("finalScore").innerText=score>=questions.length/2?"Pass":"Failed"
-       let winner=document.getElementById("winner");
-       
-        let quizCard=document.getElementById("quizCard");
-        quizCard.style.display="none"
-        winner.style.display="flex";
-        
+    function endGame() {
+        document.getElementById("rightQuestion").innerText = score;
+        document.getElementById("wrongQuestion").innerText = questions.length - score;
+        document.getElementById("finalScore").innerText = score >= questions.length / 2 ? "Pass" : "Failed"
+        let winner = document.getElementById("winner");
+
+        let quizCard = document.getElementById("quizCard");
+        quizCard.style.display = "none"
+        winner.style.display = "flex";
+
+    }
+    function wrongAnswer() {
+        document.getElementById("negative").style.display = "flex";
+
+        setTimeout(() => {
+            document.getElementById("negative").style.display = "none"
+        }, 1000)
+    }
+    function rightAnswer() {
+        document.getElementById("positive").style.display = "flex";
+
+        setTimeout(() => {
+            document.getElementById("positive").style.display = "none"
+        }, 1000)
     }
 </script>
 
