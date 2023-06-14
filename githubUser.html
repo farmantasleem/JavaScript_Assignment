@@ -33,6 +33,55 @@
         body{
             background-color: rgb(30,25,77);
         }
+
+        #content{
+            display: flex;
+            width: 750px;
+            justify-self: center;
+            margin: auto;
+            flex-direction: column;
+            align-self: center;
+            margin-top: 50px;
+            border-radius: 10px;
+            gap:20px;
+            padding: 20px;
+            height: 290px;
+            align-items: center;
+
+        }
+        #content h1{
+            font-size: 20px;
+        }
+
+        #content>div{
+            display: flex;
+            flex-direction:row;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #content div div{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #content p,#content h1{
+            background-color: rgb(93,72,232);
+            color: white;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        #content img{
+            width: 200px;
+            border-radius: 50px;
+            
+        }
+
+        #content{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -43,18 +92,36 @@
 
     </div>
     <div id="content">
-
+        <img id="image" src="https://th.bing.com/th/id/OIP.Kc2eyEH1-Xc6Cl3ltZCFNAAAAA?pid=ImgDet&w=360&h=360&rs=1" alt="">
+        <div style="display: flex;">
+            <div>
+                <h1>Name : <span id="name">Farman Tasleem</span></h1>
+                <p>Location: <span id="location">Ghaziabad,Up</span></p>
+                <p>Follower: <span id="follower">29 followers</span></p>
+                </div>
+               <div>
+                <p>Portfolio : <a href="" id="portfolio">Portfolio</a></p>
+                <p>Public Repos: <span id="repo">29</span></p>
+                <p>Bio: <span id="bio">Full Stack Web Developer</span></p>
+               </div>
+        </div>
     </div>
 </body>
 <script>
 
     async function getData(){
         const userName=document.getElementById("userName").value;
-
+        
         const resp=await fetch(`https://api.github.com/users/${userName}`);
-        const {avatar_url,bio,followers,location,name}=await resp.json()
-        document.getElementById("content").innerText=JSON.stringify(data);
-        console.log(data)
+        const {avatar_url,bio,followers,location,name,blog,public_repos}=await resp.json()
+        document.getElementById("name").innerText=name;
+        document.getElementById("follower").innerText=followers;
+        document.getElementById("bio").innerText=bio;
+        document.getElementById("image").src=avatar_url;
+        document.getElementById("location").innerText=location;
+        document.getElementById("portfolio").href=blog||"/";
+        document.getElementById("repo").innerText=public_repos;
+        document.getElementById("content").style.display="flex";
     }
 </script>
 </html>
