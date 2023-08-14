@@ -59,24 +59,28 @@
 
 
 
-const nameArray=[
-    {name:"Ashu",batch:"sigma2.0",money:100},
-    {name:"Rajnish",batch:"sigma2.0",money:200},
-    {name:"Himanshu",batch:"sigma 2.0",money:300},
-    {name:"Ashu",batch:"sigma 2.0",money:300},
-    {name:"Ashu",batch:"sigma 2.0",money:300},
-    {name:"Ashu",batch:"sigma 2.0",money:300},
-    {name:"Ashu",batch:"sigma 2.0",money:300},
+// const nameArray=[
+//     {name:"Ashu",batch:"sigma2.0",money:100},
+//     {name:"Rajnish",batch:"sigma2.0",money:200},
+//     {name:"Himanshu",batch:"sigma 2.0",money:300},
+//     {name:"Ashu",batch:"sigma 2.0",money:300},
+//     {name:"Ashu",batch:"sigma 2.0",money:300},
+//     {name:"Ashu",batch:"sigma 2.0",money:300},
+//     {name:"Ashu",batch:"sigma 2.0",money:300},
     
-]
-Ashu:10
-// i want to name of the person who has money more 250 rupees
+// ]
+// Ashu:10
+// // i want to name of the person who has money more 250 rupees
 
-let howMany=0
+// let howMany=0
 
-for(let i=0;i<nameArray.length;i++){
-    nameArray[i].name=="Ashu"?howMany++:""
-}
+// for(let i=0;i<nameArray.length;i++){
+//     nameArray[i].name=="Ashu"?howMany++:""
+// }
 
-console.log("Total Ashu",howMany)
+// console.log("Total Ashu",howMany)
+
+// global scope 
+// local scope/block scope -- let,const 
+// functional scope -- var
 
